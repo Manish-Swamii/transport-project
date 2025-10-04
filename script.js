@@ -1,26 +1,67 @@
+// Focus trap utility
+function trapFocus(element) {
+    const focusableElements = element.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    function handleTab(e) {
+        if (e.key === 'Tab') {
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    lastElement.focus();
+                    e.preventDefault();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    firstElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+    }
+
+    element.addEventListener('keydown', handleTab);
+    firstElement.focus();
+
+    return () => element.removeEventListener('keydown', handleTab);
+}
+
 const loginBtn = document.getElementById('loginBtn');
 const registerBtn = document.getElementById('registerBtn');
 const loginModal = document.getElementById('loginModal');
 const registerModal = document.getElementById('registerModal');
 const closeButtons = document.querySelectorAll('.close-modal');
+const hamburger = document.getElementById('hamburger');
+const nav = document.querySelector('nav');
+let removeTrapLogin, removeTrapRegister;
 
 if (loginBtn && loginModal) {
   loginBtn.addEventListener('click', () => {
     loginModal.style.display = 'flex';
+    removeTrapLogin = trapFocus(loginModal);
   });
 }
 
 if (registerBtn && registerModal) {
   registerBtn.addEventListener('click', () => {
     registerModal.style.display = 'flex';
+    removeTrapRegister = trapFocus(registerModal);
   });
 }
 
 if (closeButtons) {
   closeButtons.forEach(button => {
     button.addEventListener('click', () => {
-      if (loginModal) loginModal.style.display = 'none';
-      if (registerModal) registerModal.style.display = 'none';
+      if (loginModal && loginModal.style.display === 'flex') {
+        loginModal.style.display = 'none';
+        if (removeTrapLogin) removeTrapLogin();
+      }
+      if (registerModal && registerModal.style.display === 'flex') {
+        registerModal.style.display = 'none';
+        if (removeTrapRegister) removeTrapRegister();
+      }
     });
   });
 }
@@ -29,21 +70,36 @@ if (closeButtons) {
 window.addEventListener('click', (e) => {
     if (e.target === loginModal) {
         loginModal.style.display = 'none';
+        if (removeTrapLogin) removeTrapLogin();
     }
     if (e.target === registerModal) {
         registerModal.style.display = 'none';
+        if (removeTrapRegister) removeTrapRegister();
     }
 });
 
-// Form submission
 document.getElementById('loginForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
+    const emailInput = document.getElementById('loginEmail');
+    const passInput = document.getElementById('loginPassword');
+
+    // Validation
+    if (!emailInput.value || !/^\S+@\S+\.\S+$/.test(emailInput.value)) {
+        alert('Valid email enter karein');
+        emailInput.focus();
+        return;
+    }
+    if (passInput.value.length < 6) {
+        alert('Password 6+ chars');
+        passInput.focus();
+        return;
+    }
+
     alert('Login functionality would be implemented here with proper backend integration.');
     loginModal.style.display = 'none';
 
     // Store login email and time in localStorage
-    localStorage.setItem('loggedInEmail', email);
+    localStorage.setItem('loggedInEmail', emailInput.value);
     localStorage.setItem('loginTime', new Date().toLocaleString());
 
     // Update login info display
@@ -52,6 +108,39 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
 
 document.getElementById('registerForm').addEventListener('submit', (e) => {
     e.preventDefault();
+    const nameInput = document.getElementById('registerName');
+    const emailInput = document.getElementById('registerEmail');
+    const phoneInput = document.getElementById('registerPhone');
+    const passInput = document.getElementById('registerPassword');
+    const confirmPassInput = document.getElementById('registerConfirmPassword');
+
+    // Validation
+    if (!nameInput.value.trim()) {
+        alert('Full Name is required');
+        nameInput.focus();
+        return;
+    }
+    if (!emailInput.value || !/^\S+@\S+\.\S+$/.test(emailInput.value)) {
+        alert('Valid email enter karein');
+        emailInput.focus();
+        return;
+    }
+    if (!phoneInput.value.trim()) {
+        alert('Phone Number is required');
+        phoneInput.focus();
+        return;
+    }
+    if (passInput.value.length < 6) {
+        alert('Password must be at least 6 characters');
+        passInput.focus();
+        return;
+    }
+    if (passInput.value !== confirmPassInput.value) {
+        alert('Passwords do not match');
+        confirmPassInput.focus();
+        return;
+    }
+
     alert('Registration functionality would be implemented here with proper backend integration.');
     registerModal.style.display = 'none';
 });

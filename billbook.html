@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         .billbook-section { padding: 2rem; background-color: #f5f7fb; min-height: calc(100vh - 200px); }
         .billbook-dashboard { display: grid; grid-template-columns: 250px 1fr; gap: 20px; }
@@ -24,6 +25,13 @@
         .status-badge.overdue { background-color: #ffebee; color: #c62828; }
         .btn-icon { background: none; border: none; color: var(--gray); cursor: pointer; }
         .invoice-logo { width: 150px; height: 60px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.2rem; margin-bottom: 20px; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #invoiceContent, #invoiceContent * { visibility: visible; }
+            #invoiceContent { position: absolute; left: 0; top: 0; width: 100%; }
+            .modal-actions { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -748,54 +756,15 @@
         }
 
         function downloadInvoice() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            // Add logo (placeholder)
-            doc.setFontSize(24);
-            doc.setTextColor(40, 116, 166); // Primary color
-            doc.text('QuikRaft', 20, 30);
-
-            // Invoice header
-            doc.setFontSize(16);
-            doc.setTextColor(0, 0, 0);
-            doc.text('TRANSPORT INVOICE', 150, 30);
-
-            // Invoice details
-            doc.setFontSize(12);
-            doc.text(`Invoice #: ${document.getElementById('modalInvoiceNumber').textContent}`, 150, 45);
-            doc.text(`Date: ${document.getElementById('modalInvoiceDate').textContent}`, 150, 55);
-
-            // From/To details
-            doc.text('From: QuikRaft Transport, Delhi, India', 20, 80);
-            doc.text(`Bill To: ${document.getElementById('modalTransporterName').textContent}`, 20, 95);
-            doc.text(`${document.getElementById('modalVehicleNumber').textContent}`, 20, 105);
-            doc.text(`${document.getElementById('modalRoute').textContent}`, 20, 115);
-
-            // Table
-            const tableData = [
-                ['Description', 'Amount (₹)'],
-                ['Freight Charges', document.getElementById('modalFreightCharges').textContent],
-                ['Advance Paid', document.getElementById('modalAdvancePaid').textContent],
-                ['Balance Payable', document.getElementById('modalBalancePayable').textContent]
-            ];
-
-            doc.autoTable({
-                startY: 140,
-                head: [tableData[0]],
-                body: tableData.slice(1),
-                theme: 'grid',
-                styles: { fontSize: 10 },
-                headStyles: { fillColor: [40, 116, 166] }
-            });
-
-            // Footer
-            const finalY = doc.lastAutoTable.finalY + 20;
-            doc.text('Thank you for your business!', 20, finalY);
-            doc.text('Payment Terms: Due on Receipt', 20, finalY + 10);
-
-            // Save the PDF
-            doc.save(`Transport_Invoice_${document.getElementById('modalInvoiceNumber').textContent}.pdf`);
+            const element = document.getElementById('invoiceContent');
+            const opt = {
+                margin: 1,
+                filename: `Transport_Invoice_${document.getElementById('modalInvoiceNumber').textContent}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
         }
 
         // Close modal when clicking outside

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>QuikRaft - Complete Transport & Logistics Platform</title>
+    <meta name="description" content="QuikRaft - All-in-one Transport & Logistics across India. Containers, drivers, bilty, tracking.">
+    <meta property="og:title" content="QuikRaft - Transport & Logistics">
+    <meta property="og:description" content="Complete transport solutions across India">
+    <meta property="og:image" content="/og-image.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="styles.css" />
     <!-- Swiper CSS -->
@@ -39,6 +43,11 @@
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="auth-buttons">
                 <button class="btn btn-outline" id="loginBtn">Login</button>
                 <button class="btn btn-primary" id="registerBtn">Register</button>
@@ -165,19 +174,19 @@
             <h3 style="font-size: 2rem; margin-bottom: 1.5rem;">Our Partners</h3>
             <div class="partners-slider">
                 <div class="partners-container">
-                    <div class="partner-item"><img src="IMAGES/DELHIVERY.png" alt="Delhivery" style="height: 40px;" />
+                    <div class="partner-item"><img src="IMAGES/DELHIVERY.png" alt="Delhivery logo - logistics partner" style="height: 40px;" loading="lazy" />
                     </div>
-                    <div class="partner-item"><img src="IMAGES/RIVIGO.png" alt="Rivigo" style="height: 40px;" /></div>
-                    <div class="partner-item"><img src="IMAGES/DHL.jpg" alt="DHL" style="height: 40px;" /></div>
-                    <div class="partner-item"><img src="IMAGES/BLUE DART.png" alt="Blue Dart" style="height: 40px;" />
+                    <div class="partner-item"><img src="IMAGES/RIVIGO.png" alt="Rivigo logo - logistics partner" style="height: 40px;" loading="lazy" /></div>
+                    <div class="partner-item"><img src="IMAGES/DHL.jpg" alt="DHL logo - logistics partner" style="height: 40px;" loading="lazy" /></div>
+                    <div class="partner-item"><img src="IMAGES/BLUE DART.png" alt="Blue Dart logo - logistics partner" style="height: 40px;" loading="lazy" />
                     </div>
-                    <div class="partner-item"><img src="IMAGES/flipkart.png" alt="Flipkart" style="height: 70px;" />
+                    <div class="partner-item"><img src="IMAGES/flipkart.png" alt="Flipkart logo - e-commerce partner" style="height: 70px;" loading="lazy" />
                     </div>
-                    <div class="partner-item"><img src="IMAGES/amzone.png" alt="Amazon" style="height: 50px;" /></div>
-                    <div class="partner-item"><img src="IMAGES/OLA.png" alt="Ola" style="height: 40px;" /></div>
-                    <div class="partner-item"><img src="IMAGES/UBER.png" alt="Uber" style="height: 40px;" /></div>
-                    <div class="partner-item"><img src="IMAGES/UPWORK.png" alt="Upwork" style="height: 40px;" /></div>
-                    <div class="partner-item"><img src="IMAGES/freelancer.png" alt="Freelancer" style="height: 40px;" />
+                    <div class="partner-item"><img src="IMAGES/amzone.png" alt="Amazon logo - e-commerce partner" style="height: 50px;" loading="lazy" /></div>
+                    <div class="partner-item"><img src="IMAGES/OLA.png" alt="Ola logo - ride-sharing partner" style="height: 40px;" loading="lazy" /></div>
+                    <div class="partner-item"><img src="IMAGES/UBER.png" alt="Uber logo - ride-sharing partner" style="height: 40px;" loading="lazy" /></div>
+                    <div class="partner-item"><img src="IMAGES/UPWORK.png" alt="Upwork logo - freelance platform partner" style="height: 40px;" loading="lazy" /></div>
+                    <div class="partner-item"><img src="IMAGES/freelancer.png" alt="Freelancer logo - freelance platform partner" style="height: 40px;" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -205,20 +214,20 @@
     <!-- Branches removed for multi-page -->
 
     <!-- Login Modal -->
-    <div class="modal" id="loginModal">
+    <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Login to QuikRaft</h2>
-                <button class="close-modal">&times;</button>
+                <h2 id="loginTitle">Login to QuikRaft</h2>
+                <button class="close-modal" aria-label="Close login modal">&times;</button>
             </div>
-            <form id="loginForm">
+            <form id="loginForm" novalidate>
                 <div class="form-group">
                     <label for="loginEmail">Email Address</label>
-                    <input type="email" id="loginEmail" required />
+                    <input type="email" id="loginEmail" aria-label="Email Address" required />
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" required />
+                    <input type="password" id="loginPassword" aria-label="Password" required minlength="6" />
                 </div>
                 <div class="form-footer">
                     <a href="#">Forgot Password?</a>
@@ -229,32 +238,32 @@
     </div>
 
     <!-- Register Modal -->
-    <div class="modal" id="registerModal">
+    <div class="modal" id="registerModal" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Join QuikRaft</h2>
-                <button class="close-modal">&times;</button>
+                <h2 id="registerTitle">Join QuikRaft</h2>
+                <button class="close-modal" aria-label="Close register modal">&times;</button>
             </div>
-            <form id="registerForm">
+            <form id="registerForm" novalidate>
                 <div class="form-group">
                     <label for="registerName">Full Name</label>
-                    <input type="text" id="registerName" required />
+                    <input type="text" id="registerName" aria-label="Full Name" required />
                 </div>
                 <div class="form-group">
                     <label for="registerEmail">Email Address</label>
-                    <input type="email" id="registerEmail" required />
+                    <input type="email" id="registerEmail" aria-label="Email Address" required />
                 </div>
                 <div class="form-group">
                     <label for="registerPhone">Phone Number</label>
-                    <input type="tel" id="registerPhone" required />
+                    <input type="tel" id="registerPhone" aria-label="Phone Number" required />
                 </div>
                 <div class="form-group">
                     <label for="registerPassword">Password</label>
-                    <input type="password" id="registerPassword" required />
+                    <input type="password" id="registerPassword" aria-label="Password" required minlength="6" />
                 </div>
                 <div class="form-group">
                     <label for="registerConfirmPassword">Confirm Password</label>
-                    <input type="password" id="registerConfirmPassword" required />
+                    <input type="password" id="registerConfirmPassword" aria-label="Confirm Password" required />
                 </div>
                 <div class="form-footer">
                     <a href="#">Already have an account?</a>
