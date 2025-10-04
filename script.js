@@ -1,26 +1,29 @@
-// Modal functionality
 const loginBtn = document.getElementById('loginBtn');
 const registerBtn = document.getElementById('registerBtn');
 const loginModal = document.getElementById('loginModal');
 const registerModal = document.getElementById('registerModal');
 const closeButtons = document.querySelectorAll('.close-modal');
 
-// Open modals
-loginBtn.addEventListener('click', () => {
+if (loginBtn && loginModal) {
+  loginBtn.addEventListener('click', () => {
     loginModal.style.display = 'flex';
-});
+  });
+}
 
-registerBtn.addEventListener('click', () => {
+if (registerBtn && registerModal) {
+  registerBtn.addEventListener('click', () => {
     registerModal.style.display = 'flex';
-});
+  });
+}
 
-// Close modals
-closeButtons.forEach(button => {
+if (closeButtons) {
+  closeButtons.forEach(button => {
     button.addEventListener('click', () => {
-        loginModal.style.display = 'none';
-        registerModal.style.display = 'none';
+      if (loginModal) loginModal.style.display = 'none';
+      if (registerModal) registerModal.style.display = 'none';
     });
-});
+  });
+}
 
 // Close modal when clicking outside
 window.addEventListener('click', (e) => {
