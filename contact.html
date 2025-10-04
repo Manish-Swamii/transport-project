@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - QuikRaft</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <div class="logo-main">QuikRaft</div>
+                    <div class="logo-tagline">TRANSPORT & LOGISTICS</div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="containers.html">Containers</a></li>
+                    <li><a href="billbook.html">BillBook</a></li>
+                    <li><a href="tracking.html">Tracking</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+            </div>
+        </div>
+    </header>
+    <div class="back-btn-container">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="services" style="padding: 5rem 2rem; text-align: center;">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Get in touch with our team for any inquiries or support</p>
+        </div>
+        <div style="max-width: 600px; margin: 0 auto; text-align: left;">
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label for="contactName">Name</label>
+                <input type="text" id="contactName" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;">
+            </div>
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" rows="5" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;"></textarea>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;">Send Message</button>
+        </div>
+        <div style="margin-top: 3rem;">
+            <h3>Our Contact Information</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li><i class="fas fa-map-marker-alt"></i> Delhi, India</li>
+                <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                <li><i class="fas fa-envelope"></i> info@quikraft.com</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>QuikRaft</h3>
+                <p>India's most comprehensive transport and logistics platform, providing end-to-end solutions for all your shipping needs.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="containers.html">Containers</a></li>
+                    <li><a href="billbook.html">BillBook</a></li>
+                    <li><a href="tracking.html">Tracking</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Transportation</a></li>
+                    <li><a href="#">Warehousing</a></li>
+                    <li><a href="#">Container Services</a></li>
+                    <li><a href="#">Cargo & Freight</a></li>
+                    <li><a href="#">Driver Partnership</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Delhi, India</li>
+                    <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                    <li><i class="fas fa-envelope"></i> info@quikraft.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 QuikRaft. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to QuikRaft</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-footer">
+                    <a href="#">Forgot Password?</a>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join QuikRaft</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" required>
+                </div>
+                <div class="form-footer">
+                    <a href="#">Already have an account?</a>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
