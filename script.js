@@ -95,7 +95,22 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
         return;
     }
 
-    alert('Login functionality would be implemented here with proper backend integration.');
+    // Check if user exists and password matches
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
+    const user = Object.values(registeredUsers).find(u => u.email === emailInput.value);
+    if (!user) {
+        alert('User not registered. Please register first.');
+        loginModal.style.display = 'none';
+        registerModal.style.display = 'flex';
+        return;
+    }
+    if (user.password !== passInput.value) {
+        alert('Incorrect password. Please try again.');
+        passInput.focus();
+        return;
+    }
+
+    alert('Login successful!');
     loginModal.style.display = 'none';
 
     // Store login email and time in localStorage
@@ -141,8 +156,26 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
         return;
     }
 
-    alert('Registration functionality would be implemented here with proper backend integration.');
+    // Check if user already registered with this phone number
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
+    if (registeredUsers[phoneInput.value]) {
+        alert('User already registered. Please login.');
+        registerModal.style.display = 'none';
+        loginModal.style.display = 'flex';
+        return;
+    }
+
+    // Register new user
+    registeredUsers[phoneInput.value] = {
+        name: nameInput.value,
+        email: emailInput.value,
+        password: passInput.value
+    };
+    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+
+    alert('Registration successful! Please login now.');
     registerModal.style.display = 'none';
+    loginModal.style.display = 'flex';
 });
 
 // Function to update login info display in Settings
