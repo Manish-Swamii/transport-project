@@ -249,16 +249,16 @@ document.querySelectorAll('.service-card, .container-card, .branch-card').forEac
   };
 
   // Booking modal functionality
-  const bookNowButtons = document.querySelectorAll('.book-now-btn');
+  const bookNowBtn = document.getElementById('bookNowBtn');
   const bookingModal = document.getElementById('bookingModal');
   const bookingForm = document.getElementById('bookingForm');
   const closeModalButtons = document.querySelectorAll('.close-modal');
 
-  bookNowButtons.forEach(button => {
-    button.addEventListener('click', () => {
+  if (bookNowBtn) {
+    bookNowBtn.addEventListener('click', () => {
       bookingModal.style.display = 'flex';
     });
-  });
+  }
 
   closeModalButtons.forEach(button => {
     button.addEventListener('click', () => {
