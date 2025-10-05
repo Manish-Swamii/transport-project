@@ -117,10 +117,10 @@ header {
 }
 
 nav ul {
-    display: none;
+    display: flex;
+    flex-direction: column;
     list-style: none;
     gap: 2rem;
-    flex-direction: column;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     padding: 1rem;
     position: absolute;
@@ -129,10 +129,16 @@ nav ul {
     width: 200px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 nav.active ul {
-    display: flex;
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
 }
 
 nav a {
