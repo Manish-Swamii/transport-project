@@ -37,6 +37,13 @@ const hamburger = document.getElementById('hamburger');
 const nav = document.querySelector('nav');
 let removeTrapLogin, removeTrapRegister;
 
+if (hamburger && nav) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
 if (loginBtn && loginModal) {
   loginBtn.addEventListener('click', () => {
     loginModal.style.display = 'flex';
