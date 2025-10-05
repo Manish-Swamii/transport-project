@@ -124,6 +124,12 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     localStorage.setItem('loggedInEmail', emailInput.value);
     localStorage.setItem('loginTime', new Date().toLocaleString());
 
+    // Show menu button after successful login
+    const hamburger = document.getElementById('hamburger');
+    if (hamburger) {
+        hamburger.style.display = 'flex';
+    }
+
     // Update login info display
     updateLoginInfoDisplay();
 });
@@ -163,10 +169,13 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
         return;
     }
 
-    // Check if user already registered with this phone number
+    // Check if user already registered with this phone number or name
     const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
-    if (registeredUsers[phoneInput.value]) {
-        alert('User already registered. Please login.');
+    const userExistsByPhone = registeredUsers[phoneInput.value];
+    const userExistsByName = Object.values(registeredUsers).some(u => u.name.toLowerCase() === nameInput.value.trim().toLowerCase());
+
+    if (userExistsByPhone || userExistsByName) {
+        alert('User with this name or phone number already registered. Please login.');
         registerModal.style.display = 'none';
         loginModal.style.display = 'flex';
         return;
@@ -183,6 +192,12 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
     alert('Registration successful! Please login now.');
     registerModal.style.display = 'none';
     loginModal.style.display = 'flex';
+
+    // Hide menu button after registration (before login)
+    const hamburger = document.getElementById('hamburger');
+    if (hamburger) {
+        hamburger.style.display = 'none';
+    }
 });
 
 // Function to update login info display in Settings
@@ -226,6 +241,36 @@ document.getElementById('refreshLocationBtn').addEventListener('click', () => {
 // On page load, update login info display if available
 document.addEventListener('DOMContentLoaded', () => {
     updateLoginInfoDisplay();
+
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.querySelector('nav');
+    const loggedInEmail = localStorage.getItem('loggedInEmail');
+
+    if (hamburger && nav) {
+        if (loggedInEmail) {
+            hamburger.style.display = 'flex';
+        } else {
+            hamburger.style.display = 'none';
+            nav.classList.remove('active');
+        }
+    }
+
+    // Add event listeners to menu links to check login status
+    const menuLinks = document.querySelectorAll('nav a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const loggedInEmail = localStorage.getItem('loggedInEmail');
+            if (!loggedInEmail) {
+                e.preventDefault();
+                alert('Please register and login first to access this feature.');
+                const registerModal = document.getElementById('registerModal');
+                if (registerModal) {
+                    registerModal.style.display = 'flex';
+                }
+                return false;
+            }
+        });
+    });
 });
 
 // BillBook functionality
