@@ -121,12 +121,13 @@ nav ul {
     flex-direction: column;
     list-style: none;
     gap: 2rem;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(29, 78, 216, 0.8));
+    backdrop-filter: blur(10px);
     padding: 1rem;
     position: absolute;
     top: 100%;
     right: 0;
-    width: 200px;
+    width: 300px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     transform: translateX(100%);
@@ -776,6 +777,7 @@ footer {
         flex-wrap: wrap;
         justify-content: center;
         gap: 1rem;
+        width: 280px;
     }
 
     .auth-buttons {
@@ -850,6 +852,10 @@ footer {
         grid-template-columns: repeat(3, 1fr);
     }
 
+    nav ul {
+        width: 300px;
+    }
+
     .partners-slider {
         height: 60px;
     }
@@ -878,6 +884,10 @@ footer {
 
     .container-grid {
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    nav ul {
+        width: 350px;
     }
 
     .partners-slider {
