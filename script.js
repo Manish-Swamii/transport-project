@@ -141,7 +141,9 @@ if (document.getElementById('loginForm')) {
     if (userDisplay) {
         const displayName = user.name;
         userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
-        userDisplay.style.display = 'block';
+        userDisplay.style.display = 'flex';
+        userDisplay.style.flexDirection = 'column';
+        userDisplay.style.alignItems = 'center';
 
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
@@ -320,7 +322,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const user = registeredUsers.find(u => u.email === loggedInEmail);
         const displayName = user ? user.name : loggedInEmail;
         userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
-        userDisplay.style.display = 'block';
+        userDisplay.style.display = 'flex';
+        userDisplay.style.flexDirection = 'column';
+        userDisplay.style.alignItems = 'center';
 
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
