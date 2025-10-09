@@ -134,6 +134,18 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
         }
     }
 
+    // Show user name and hide login/register buttons
+    const userDisplay = document.getElementById('userDisplay');
+    if (userDisplay) {
+        userDisplay.textContent = `Welcome, ${emailInput.value}`;
+        userDisplay.style.display = 'block';
+
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (registerBtn) registerBtn.style.display = 'none';
+    }
+
     // Update login info display
     updateLoginInfoDisplay();
 });
@@ -266,6 +278,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (registerBtn) {
             registerBtn.style.display = 'none';
         }
+    }
+
+    // Show logged in user name and hide login/register buttons
+    const userDisplay = document.getElementById('userDisplay');
+    if (loggedInEmail && userDisplay) {
+        userDisplay.textContent = `Welcome, ${loggedInEmail}`;
+        userDisplay.style.display = 'block';
+
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        if (loginBtn) loginBtn.style.display = 'none';
+        if (registerBtn) registerBtn.style.display = 'none';
     }
 
     // Add event listeners to menu links to check login status
