@@ -1,4 +1,4 @@
-u// Focus trap utility
+// Focus trap utility
 function trapFocus(element) {
     const focusableElements = element.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -85,7 +85,9 @@ window.addEventListener('click', (e) => {
     }
 });
 
-document.getElementById('loginForm').addEventListener('submit', (e) => {
+if (document.getElementById('loginForm')) {
+  document.getElementById('loginForm').addEventListener('submit', (e) => {
+    console.log("Login form submitted");
     e.preventDefault();
     const emailInput = document.getElementById('loginEmail');
     const passInput = document.getElementById('loginPassword');
@@ -138,20 +140,33 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     const userDisplay = document.getElementById('userDisplay');
     if (userDisplay) {
         const displayName = user.name;
-        userDisplay.textContent = `Welcome, ${displayName}`;
+        userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
         userDisplay.style.display = 'block';
 
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
         if (loginBtn) loginBtn.style.display = 'none';
         if (registerBtn) registerBtn.style.display = 'none';
+
+        // Add logout event listener
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('loggedInEmail');
+                localStorage.removeItem('loginTime');
+                location.reload(); // Reload to reset UI
+            });
+        }
     }
 
     // Update login info display
     updateLoginInfoDisplay();
-});
+  });
+}
 
-document.getElementById('registerForm').addEventListener('submit', (e) => {
+if (document.getElementById('registerForm')) {
+  document.getElementById('registerForm').addEventListener('submit', (e) => {
+    console.log("Register form submitted");
     e.preventDefault();
     const nameInput = document.getElementById('registerName');
     const emailInput = document.getElementById('registerEmail');
@@ -219,7 +234,8 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
     if (hamburger) {
         hamburger.style.display = 'none';
     }
-});
+  });
+}
 
 // Function to update login info display in Settings
 function updateLoginInfoDisplay() {
@@ -230,34 +246,38 @@ function updateLoginInfoDisplay() {
     const timeElem = document.getElementById('loginTime');
     const userInfoCard = document.getElementById('userLoginInfoCard');
 
-    emailElem.textContent = email;
-    timeElem.textContent = loginTime;
-    userInfoCard.style.display = 'block';
+    if (emailElem) emailElem.textContent = email;
+    if (timeElem) timeElem.textContent = loginTime;
+    if (userInfoCard) userInfoCard.style.display = 'block';
 
     // Fetch location using IP geolocation API
-    fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-            locationElem.textContent = `${data.city}, ${data.region}, ${data.country_name}`;
-        })
-        .catch(() => {
-            locationElem.textContent = 'Unable to fetch location';
-        });
+    if (locationElem) {
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                locationElem.textContent = `${data.city}, ${data.region}, ${data.country_name}`;
+            })
+            .catch(() => {
+                locationElem.textContent = 'Unable to fetch location';
+            });
+    }
 }
 
 // Refresh location button handler
-document.getElementById('refreshLocationBtn').addEventListener('click', () => {
-    const locationElem = document.getElementById('loginLocation');
-    locationElem.textContent = 'Fetching...';
-    fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-            locationElem.textContent = `${data.city}, ${data.region}, ${data.country_name}`;
-        })
-        .catch(() => {
-            locationElem.textContent = 'Unable to fetch location';
-        });
-});
+if (document.getElementById('refreshLocationBtn')) {
+  document.getElementById('refreshLocationBtn').addEventListener('click', () => {
+      const locationElem = document.getElementById('loginLocation');
+      locationElem.textContent = 'Fetching...';
+      fetch('https://ipapi.co/json/')
+          .then(response => response.json())
+          .then(data => {
+              locationElem.textContent = `${data.city}, ${data.region}, ${data.country_name}`;
+          })
+          .catch(() => {
+              locationElem.textContent = 'Unable to fetch location';
+          });
+  });
+}
 
 // On page load, update login info display if available
 document.addEventListener('DOMContentLoaded', () => {
@@ -299,13 +319,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const user = registeredUsers.find(u => u.email === loggedInEmail);
         const displayName = user ? user.name : loggedInEmail;
-        userDisplay.textContent = `Welcome, ${displayName}`;
+        userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
         userDisplay.style.display = 'block';
 
         const loginBtn = document.getElementById('loginBtn');
         const registerBtn = document.getElementById('registerBtn');
         if (loginBtn) loginBtn.style.display = 'none';
         if (registerBtn) registerBtn.style.display = 'none';
+
+        // Add logout event listener
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('loggedInEmail');
+                localStorage.removeItem('loginTime');
+                location.reload(); // Reload to reset UI
+            });
+        }
     }
 
     // Add event listeners to menu links to check login status
@@ -429,33 +459,35 @@ document.querySelectorAll('.service-card, .container-card, .branch-card').forEac
     }
 
   // Initialize Swiper for testimonials
-  const swiperTestimonials = new Swiper('.swiper', {
-    slidesPerView: 3,
-    spaceBetween: 50,
-    loop: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    autoplay: {
-      delay: 1000,
-      disableOnInteraction: false,
-    },
-    breakpoints: {
-      640: {
-        slidesPerView: 1,
-        spaceBetween: 20,
+  if (document.querySelector('.swiper')) {
+    const swiperTestimonials = new Swiper('.swiper', {
+      slidesPerView: 3,
+      spaceBetween: 50,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
       },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 30,
+      autoplay: {
+        delay: 1000,
+        disableOnInteraction: false,
       },
-      1024: {
-        slidesPerView: 3,
-        spaceBetween: 50,
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
       },
-    },
-  });
+    });
+  }
 
   // Initialize Swiper for partners slider
   const swiperPartners = new Swiper('.partners-slider .partners-container', {
