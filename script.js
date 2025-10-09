@@ -85,86 +85,86 @@ window.addEventListener('click', (e) => {
     }
 });
 
-if (document.getElementById('loginForm')) {
-  document.getElementById('loginForm').addEventListener('submit', (e) => {
-    console.log("Login form submitted");
-    e.preventDefault();
-    const emailInput = document.getElementById('loginEmail');
-    const passInput = document.getElementById('loginPassword');
+    if (document.getElementById('loginForm')) {
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        console.log("Login form submitted");
+        e.preventDefault();
+        const emailInput = document.getElementById('loginEmail');
+        const passInput = document.getElementById('loginPassword');
 
-    // Validation
-    if (!emailInput.value || !/^\S+@\S+\.\S+$/.test(emailInput.value)) {
-        alert('Valid email enter karein');
-        emailInput.focus();
-        return;
-    }
-    if (passInput.value.length < 6) {
-        alert('Password 6+ chars');
-        passInput.focus();
-        return;
-    }
-
-    // Check if user exists and password matches
-    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-    if (!Array.isArray(registeredUsers)) {
-        registeredUsers = [];
-        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-    }
-    const user = registeredUsers.find(u => u.email === emailInput.value);
-    if (!user) {
-        alert('User not registered. Please register first.');
-        loginModal.style.display = 'none';
-        registerModal.style.display = 'flex';
-        return;
-    }
-    if (user.password !== passInput.value) {
-        alert('Incorrect password. Please try again.');
-        passInput.focus();
-        return;
-    }
-
-    alert('Login successful!');
-    loginModal.style.display = 'none';
-
-    // Store login email and time in localStorage
-    localStorage.setItem('loggedInEmail', emailInput.value);
-    localStorage.setItem('loginTime', new Date().toLocaleString());
-
-    // Show menu button after successful login
-    const hamburger = document.getElementById('hamburger');
-    if (hamburger) {
-        hamburger.style.display = 'flex';
-    }
-
-    // Show user name and hide login/register buttons
-    const userDisplay = document.getElementById('userDisplay');
-    if (userDisplay) {
-        const displayName = user.name;
-        userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
-        userDisplay.style.display = 'flex';
-        userDisplay.style.flexDirection = 'column';
-        userDisplay.style.alignItems = 'center';
-
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        if (loginBtn) loginBtn.style.display = 'none';
-        if (registerBtn) registerBtn.style.display = 'none';
-
-        // Add logout event listener
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('loggedInEmail');
-                localStorage.removeItem('loginTime');
-                location.reload(); // Reload to reset UI
-            });
+        // Validation
+        if (!emailInput.value || !/^\S+@\S+\.\S+$/.test(emailInput.value)) {
+            alert('Valid email enter karein');
+            emailInput.focus();
+            return;
         }
-    }
+        if (passInput.value.length < 6) {
+            alert('Password 6+ chars');
+            passInput.focus();
+            return;
+        }
 
-    // Update login info display
-    updateLoginInfoDisplay();
-  });
-}
+        // Check if user exists and password matches
+        let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+        if (!Array.isArray(registeredUsers)) {
+            registeredUsers = [];
+            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+        }
+        const user = registeredUsers.find(u => u.email === emailInput.value);
+        if (!user) {
+            alert('User not registered. Please register first.');
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+            return;
+        }
+        if (user.password !== passInput.value) {
+            alert('Incorrect password. Please try again.');
+            passInput.focus();
+            return;
+        }
+
+        alert('done now use');
+        loginModal.style.display = 'none';
+
+        // Store login email and time in localStorage
+        localStorage.setItem('loggedInEmail', emailInput.value);
+        localStorage.setItem('loginTime', new Date().toLocaleString());
+
+        // Show menu button after successful login
+        const hamburger = document.getElementById('hamburger');
+        if (hamburger) {
+            hamburger.style.display = 'flex';
+        }
+
+        // Show user name and hide login/register buttons
+        const userDisplay = document.getElementById('userDisplay');
+        if (userDisplay) {
+            const displayName = user.name;
+            userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
+            userDisplay.style.display = 'flex';
+            userDisplay.style.flexDirection = 'column';
+            userDisplay.style.alignItems = 'center';
+
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            if (loginBtn) loginBtn.style.display = 'none';
+            if (registerBtn) registerBtn.style.display = 'none';
+
+            // Add logout event listener
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('loggedInEmail');
+                    localStorage.removeItem('loginTime');
+                    location.reload(); // Reload to reset UI
+                });
+            }
+        }
+
+        // Update login info display
+        updateLoginInfoDisplay();
+      });
+    }
 
 if (document.getElementById('registerForm')) {
   document.getElementById('registerForm').addEventListener('submit', (e) => {
