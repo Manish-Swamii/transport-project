@@ -103,7 +103,11 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     }
 
     // Check if user exists and password matches
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    if (!Array.isArray(registeredUsers)) {
+        registeredUsers = [];
+        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+    }
     const user = registeredUsers.find(u => u.email === emailInput.value);
     if (!user) {
         alert('User not registered. Please register first.');
@@ -184,6 +188,10 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
 
     // Check if user already registered
     let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    if (!Array.isArray(registeredUsers)) {
+        registeredUsers = [];
+        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+    }
     const userExists = registeredUsers.some(u => u.email === emailInput.value || u.phone === phoneInput.value || u.name.toLowerCase() === nameInput.value.trim().toLowerCase());
 
     if (userExists) {
@@ -269,7 +277,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Hide register button if any user is registered
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    if (!Array.isArray(registeredUsers)) {
+        registeredUsers = [];
+        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+    }
     if (registeredUsers.length > 0) {
         const registerBtn = document.getElementById('registerBtn');
         if (registerBtn) {
@@ -280,7 +292,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show logged in user name and hide login/register buttons
     const userDisplay = document.getElementById('userDisplay');
     if (loggedInEmail && userDisplay) {
-        const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+        let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+        if (!Array.isArray(registeredUsers)) {
+            registeredUsers = [];
+            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+        }
         const user = registeredUsers.find(u => u.email === loggedInEmail);
         const displayName = user ? user.name : loggedInEmail;
         userDisplay.textContent = `Welcome, ${displayName}`;
