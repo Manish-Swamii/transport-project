@@ -103,8 +103,8 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     }
 
     // Check if user exists and password matches
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
-    const user = Object.values(registeredUsers).find(u => u.email === emailInput.value);
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    const user = registeredUsers.find(u => u.email === emailInput.value);
     if (!user) {
         alert('User not registered. Please register first.');
         loginModal.style.display = 'none';
@@ -182,24 +182,24 @@ document.getElementById('registerForm').addEventListener('submit', (e) => {
         return;
     }
 
-    // Check if user already registered with this phone number or name
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
-    const userExistsByPhone = registeredUsers[phoneInput.value];
-    const userExistsByName = Object.values(registeredUsers).some(u => u.name.toLowerCase() === nameInput.value.trim().toLowerCase());
+    // Check if user already registered
+    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    const userExists = registeredUsers.some(u => u.email === emailInput.value || u.phone === phoneInput.value || u.name.toLowerCase() === nameInput.value.trim().toLowerCase());
 
-    if (userExistsByPhone || userExistsByName) {
-        alert('User with this name or phone number already registered. Please login.');
+    if (userExists) {
+        alert('User with this email, phone or name already registered. Please login.');
         registerModal.style.display = 'none';
         loginModal.style.display = 'flex';
         return;
     }
 
     // Register new user
-    registeredUsers[phoneInput.value] = {
-        name: nameInput.value,
+    registeredUsers.push({
+        name: nameInput.value.trim(),
         email: emailInput.value,
+        phone: phoneInput.value,
         password: passInput.value
-    };
+    });
     localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
 
     alert('Registration successful! Please login now.');
@@ -269,8 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Hide register button if any user is registered
-    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
-    if (Object.keys(registeredUsers).length > 0) {
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    if (registeredUsers.length > 0) {
         const registerBtn = document.getElementById('registerBtn');
         if (registerBtn) {
             registerBtn.style.display = 'none';
@@ -280,8 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show logged in user name and hide login/register buttons
     const userDisplay = document.getElementById('userDisplay');
     if (loggedInEmail && userDisplay) {
-        const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
-        const user = Object.values(registeredUsers).find(u => u.email === loggedInEmail);
+        const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+        const user = registeredUsers.find(u => u.email === loggedInEmail);
         const displayName = user ? user.name : loggedInEmail;
         userDisplay.textContent = `Welcome, ${displayName}`;
         userDisplay.style.display = 'block';
