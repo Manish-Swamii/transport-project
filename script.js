@@ -259,6 +259,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Hide register button if any user is registered
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
+    if (Object.keys(registeredUsers).length > 0) {
+        const registerBtn = document.getElementById('registerBtn');
+        if (registerBtn) {
+            registerBtn.style.display = 'none';
+        }
+    }
+
     // Add event listeners to menu links to check login status
     const menuLinks = document.querySelectorAll('nav a');
     menuLinks.forEach(link => {
