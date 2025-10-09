@@ -127,11 +127,7 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     // Show menu button after successful login
     const hamburger = document.getElementById('hamburger');
     if (hamburger) {
-        if (window.innerWidth <= 480) {
-            hamburger.style.display = 'flex';
-        } else {
-            hamburger.style.display = 'none';
-        }
+        hamburger.style.display = 'flex';
     }
 
     // Show user name and hide login/register buttons
@@ -263,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loggedInEmail = localStorage.getItem('loggedInEmail');
 
     if (hamburger && nav) {
-        if (loggedInEmail && window.innerWidth <= 480) {
+        if (loggedInEmail) {
             hamburger.style.display = 'flex';
         } else {
             hamburger.style.display = 'none';
