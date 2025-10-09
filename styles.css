@@ -174,7 +174,7 @@ nav a:hover::after {
 }
 
 .hamburger {
-    display: flex;
+    display: none;
     flex-direction: column;
     cursor: pointer;
     gap: 4px;
