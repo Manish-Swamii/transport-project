@@ -1,4 +1,4 @@
-// Focus trap utility
+u// Focus trap utility
 function trapFocus(element) {
     const focusableElements = element.querySelectorAll(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -133,7 +133,8 @@ document.getElementById('loginForm').addEventListener('submit', (e) => {
     // Show user name and hide login/register buttons
     const userDisplay = document.getElementById('userDisplay');
     if (userDisplay) {
-        userDisplay.textContent = `Welcome, ${emailInput.value}`;
+        const displayName = user.name;
+        userDisplay.textContent = `Welcome, ${displayName}`;
         userDisplay.style.display = 'block';
 
         const loginBtn = document.getElementById('loginBtn');
@@ -279,7 +280,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show logged in user name and hide login/register buttons
     const userDisplay = document.getElementById('userDisplay');
     if (loggedInEmail && userDisplay) {
-        userDisplay.textContent = `Welcome, ${loggedInEmail}`;
+        const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '{}');
+        const user = Object.values(registeredUsers).find(u => u.email === loggedInEmail);
+        const displayName = user ? user.name : loggedInEmail;
+        userDisplay.textContent = `Welcome, ${displayName}`;
         userDisplay.style.display = 'block';
 
         const loginBtn = document.getElementById('loginBtn');
