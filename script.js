@@ -496,32 +496,34 @@ document.querySelectorAll('.service-card, .container-card, .branch-card').forEac
     });
   });
 
-  bookingForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const bookingDate = bookingForm.bookingDate ? bookingForm.bookingDate.value : '';
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const bookingDate = bookingForm.bookingDate ? bookingForm.bookingDate.value : '';
 
-    // Create booking object
-    const booking = {
-      customerName: bookingForm.customerName.value,
-      containerType: bookingForm.containerType.value,
-      bookingDate: bookingDate,
-      city: bookingForm.city.value,
-      address: bookingForm.address.value,
-      itemsWeight: bookingForm.itemsWeight.value,
-      weightUnit: bookingForm.weightUnit.value,
-      contactNumber: bookingForm.contactNumber.value,
-      timestamp: new Date().toISOString()
-    };
+      // Create booking object
+      const booking = {
+        customerName: bookingForm.customerName.value,
+        containerType: bookingForm.containerType.value,
+        bookingDate: bookingDate,
+        city: bookingForm.city.value,
+        address: bookingForm.address.value,
+        itemsWeight: bookingForm.itemsWeight.value,
+        weightUnit: bookingForm.weightUnit.value,
+        contactNumber: bookingForm.contactNumber.value,
+        timestamp: new Date().toISOString()
+      };
 
-    // Save to localStorage
-    let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-    bookings.push(booking);
-    localStorage.setItem('bookings', JSON.stringify(bookings));
+      // Save to localStorage
+      let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      bookings.push(booking);
+      localStorage.setItem('bookings', JSON.stringify(bookings));
 
-    alert('Thank you, ' + bookingForm.customerName.value + '! Your booking for a ' + bookingForm.containerType.value + ' container on ' + bookingDate + ' in ' + bookingForm.city.value + '. Contact Number: ' + bookingForm.contactNumber.value + '. We will connect with you soon.');
-    bookingModal.style.display = 'none';
-    bookingForm.reset();
-  });
+      alert('Thank you, ' + bookingForm.customerName.value + '! Your booking for a ' + bookingForm.containerType.value + ' container on ' + bookingDate + ' in ' + bookingForm.city.value + '. Contact Number: ' + bookingForm.contactNumber.value + '. We will connect with you soon.');
+      if (bookingModal) bookingModal.style.display = 'none';
+      bookingForm.reset();
+    });
+  }
 
   // Remove current date and time display inside Book Now button
   const currentDateBtnElem = document.getElementById('currentDate');
