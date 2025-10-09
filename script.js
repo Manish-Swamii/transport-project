@@ -321,7 +321,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const user = registeredUsers.find(u => u.email === loggedInEmail);
         const displayName = user ? user.name : loggedInEmail;
-        userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
+        const userEmail = user ? user.email : loggedInEmail;
+
+        // Set userDisplay label text
+        const userDisplayLabel = document.getElementById('userDisplayLabel');
+        const userNameText = document.getElementById('userNameText');
+        if (userNameText) {
+            userNameText.textContent = displayName;
+        }
+
+        // Set dropdown user info
+        const dropdownUserName = document.getElementById('dropdownUserName');
+        const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+        if (dropdownUserName) dropdownUserName.textContent = displayName;
+        if (dropdownUserEmail) dropdownUserEmail.textContent = userEmail;
+
         userDisplay.style.display = 'flex';
         userDisplay.style.flexDirection = 'column';
         userDisplay.style.alignItems = 'center';
@@ -331,15 +345,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (loginBtn) loginBtn.style.display = 'none';
         if (registerBtn) registerBtn.style.display = 'none';
 
-        // Add logout event listener
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
+        // Toggle dropdown on clicking userDisplayLabel (photo or name)
+        if (userDisplayLabel) {
+            userDisplayLabel.addEventListener('click', () => {
+                const userDropdown = document.getElementById('userDropdown');
+                if (userDropdown) {
+                    userDropdown.classList.toggle('show');
+                }
+            });
+        }
+
+        // Logout button inside dropdown
+        const dropdownLogout = document.getElementById('dropdownLogout');
+        if (dropdownLogout) {
+            dropdownLogout.addEventListener('click', (e) => {
+                e.stopPropagation();
                 localStorage.removeItem('loggedInEmail');
                 localStorage.removeItem('loginTime');
                 location.reload(); // Reload to reset UI
             });
         }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const userDropdown = document.getElementById('userDropdown');
+            if (userDropdown && !userDisplay.contains(e.target)) {
+                userDropdown.classList.remove('show');
+            }
+        });
     }
 
     // Add event listeners to menu links to check login status
