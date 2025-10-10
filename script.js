@@ -123,7 +123,7 @@ window.addEventListener('click', (e) => {
             return;
         }
 
-        alert('done now use');
+        alert('Login successful');
         loginModal.style.display = 'none';
 
         // Store login email and time in localStorage
@@ -287,6 +287,13 @@ function setupUserDisplay(loggedInEmail) {
     if (dropdownUserName) dropdownUserName.textContent = displayName;
     if (dropdownUserEmail) dropdownUserEmail.textContent = userEmail;
     if (dropdownGmail) dropdownGmail.href = `mailto:${userEmail}`;
+
+    // Update login prompt message after successful login
+    const loginPrompt = document.getElementById('loginPrompt');
+    if (loginPrompt) {
+        loginPrompt.textContent = 'okay now use all features';
+        loginPrompt.style.color = '#10b981'; // Green color for success
+    }
 
     userDisplay.style.display = 'flex';
     userDisplay.style.flexDirection = 'column';
