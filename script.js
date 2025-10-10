@@ -283,8 +283,10 @@ function setupUserDisplay(loggedInEmail) {
     // Set dropdown user info
     const dropdownUserName = document.getElementById('dropdownUserName');
     const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+    const dropdownGmail = document.getElementById('dropdownGmail');
     if (dropdownUserName) dropdownUserName.textContent = displayName;
     if (dropdownUserEmail) dropdownUserEmail.textContent = userEmail;
+    if (dropdownGmail) dropdownGmail.href = `mailto:${userEmail}`;
 
     userDisplay.style.display = 'flex';
     userDisplay.style.flexDirection = 'column';
