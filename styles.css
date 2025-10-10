@@ -937,39 +937,121 @@ footer {
     position: absolute;
     right: 0;
     top: 100%;
-    background: #222;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    padding: 1rem;
-    min-width: 220px;
+    background: linear-gradient(135deg, #1f2937, #374151);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2);
+    padding: 0;
+    min-width: 250px;
     z-index: 1001;
     color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    margin-top: 8px;
+    animation: dropdownSlide 0.3s ease-out;
 }
 
 .user-dropdown.show {
     display: block;
 }
 
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.user-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #1f2937;
+}
+
+#userInfo {
+    padding: 1rem 1.25rem;
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+#dropdownUserName {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+}
+
+#dropdownUserEmail {
+    font-size: 0.85rem;
+    color: #d1d5db;
+    opacity: 0.8;
+}
+
 .user-dropdown a,
 .user-dropdown button {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     width: 100%;
-    padding: 0.5rem 0;
-    color: white;
+    padding: 0.75rem 1.25rem;
+    color: #f9fafb;
     text-decoration: none;
     background: none;
     border: none;
     text-align: left;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+    border-radius: 0;
+    position: relative;
 }
 
 .user-dropdown a:hover,
 .user-dropdown button:hover {
-    background-color: var(--primary);
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark));
     color: white;
+    transform: translateX(4px);
+}
+
+.user-dropdown a i,
+.user-dropdown button i {
+    width: 18px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.user-dropdown button {
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-weight: 600;
+    color: #ef4444;
+}
+
+.user-dropdown button:hover {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+    color: white;
+    transform: translateX(4px);
+}
+
+/* Responsive dropdown */
+@media (max-width: 768px) {
+    .user-dropdown {
+        min-width: 200px;
+        right: -50px;
+    }
+    
+    .user-dropdown::before {
+        right: 70px;
+    }
 }
 
 /* Back button style */

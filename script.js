@@ -127,7 +127,8 @@ window.addEventListener('click', (e) => {
         loginModal.style.display = 'none';
 
         // Store login email and time in localStorage
-        localStorage.setItem('loggedInEmail', emailInput.value);
+        const loggedInEmail = emailInput.value;
+        localStorage.setItem('loggedInEmail', loggedInEmail);
         localStorage.setItem('loginTime', new Date().toLocaleString());
 
         // Show menu button after successful login
@@ -136,30 +137,8 @@ window.addEventListener('click', (e) => {
             hamburger.style.display = 'flex';
         }
 
-        // Show user name and hide login/register buttons
-        const userDisplay = document.getElementById('userDisplay');
-        if (userDisplay) {
-            const displayName = user.name;
-            userDisplay.innerHTML = `Welcome, ${displayName}<br><button id="logoutBtn" class="btn btn-outline" style="margin-top: 5px; font-size: 0.9rem;">Logout</button>`;
-            userDisplay.style.display = 'flex';
-            userDisplay.style.flexDirection = 'column';
-            userDisplay.style.alignItems = 'center';
-
-            const loginBtn = document.getElementById('loginBtn');
-            const registerBtn = document.getElementById('registerBtn');
-            if (loginBtn) loginBtn.style.display = 'none';
-            if (registerBtn) registerBtn.style.display = 'none';
-
-            // Add logout event listener
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', () => {
-                    localStorage.removeItem('loggedInEmail');
-                    localStorage.removeItem('loginTime');
-                    location.reload(); // Reload to reset UI
-                });
-            }
-        }
+        // Setup user display after login
+        setupUserDisplay(loggedInEmail);
 
         // Update login info display
         updateLoginInfoDisplay();
@@ -281,6 +260,75 @@ if (document.getElementById('refreshLocationBtn')) {
   });
 }
 
+function setupUserDisplay(loggedInEmail) {
+    const userDisplay = document.getElementById('userDisplay');
+    if (!userDisplay) return;
+
+    let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+    if (!Array.isArray(registeredUsers)) {
+        registeredUsers = [];
+        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+    }
+    const user = registeredUsers.find(u => u.email === loggedInEmail);
+    const displayName = user ? user.name : loggedInEmail;
+    const userEmail = user ? user.email : loggedInEmail;
+
+    // Set userDisplay label text
+    const userDisplayLabel = document.getElementById('userDisplayLabel');
+    const userNameText = document.getElementById('userNameText');
+    if (userNameText) {
+        userNameText.textContent = displayName;
+    }
+
+    // Set dropdown user info
+    const dropdownUserName = document.getElementById('dropdownUserName');
+    const dropdownUserEmail = document.getElementById('dropdownUserEmail');
+    if (dropdownUserName) dropdownUserName.textContent = displayName;
+    if (dropdownUserEmail) dropdownUserEmail.textContent = userEmail;
+
+    userDisplay.style.display = 'flex';
+    userDisplay.style.flexDirection = 'column';
+    userDisplay.style.alignItems = 'center';
+
+    const loginBtn = document.getElementById('loginBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (registerBtn) registerBtn.style.display = 'none';
+
+    // Toggle dropdown on clicking userDisplayLabel (photo or name)
+    if (userDisplayLabel && !userDisplayLabel.hasAttribute('data-toggle-attached')) {
+        userDisplayLabel.setAttribute('data-toggle-attached', 'true');
+        userDisplayLabel.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const userDropdown = document.getElementById('userDropdown');
+            if (userDropdown) {
+                userDropdown.classList.toggle('show');
+            }
+        });
+    }
+
+    // Logout button inside dropdown
+    const dropdownLogout = document.getElementById('dropdownLogout');
+    if (dropdownLogout && !dropdownLogout.hasAttribute('data-logout-attached')) {
+        dropdownLogout.setAttribute('data-logout-attached', 'true');
+        dropdownLogout.addEventListener('click', (e) => {
+            e.stopPropagation();
+            localStorage.removeItem('loggedInEmail');
+            localStorage.removeItem('loginTime');
+            location.reload(); // Reload to reset UI
+        });
+    }
+}
+
+// Add single outside click listener
+document.addEventListener('click', (e) => {
+    const userDisplay = document.getElementById('userDisplay');
+    const userDropdown = document.getElementById('userDropdown');
+    if (userDropdown && userDisplay && !userDisplay.contains(e.target)) {
+        userDropdown.classList.remove('show');
+    }
+});
+
 // On page load, update login info display if available
 document.addEventListener('DOMContentLoaded', () => {
     updateLoginInfoDisplay();
@@ -311,68 +359,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Show logged in user name and hide login/register buttons
-    const userDisplay = document.getElementById('userDisplay');
-    if (loggedInEmail && userDisplay) {
-        let registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
-        if (!Array.isArray(registeredUsers)) {
-            registeredUsers = [];
-            localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
-        }
-        const user = registeredUsers.find(u => u.email === loggedInEmail);
-        const displayName = user ? user.name : loggedInEmail;
-        const userEmail = user ? user.email : loggedInEmail;
-
-        // Set userDisplay label text
-        const userDisplayLabel = document.getElementById('userDisplayLabel');
-        const userNameText = document.getElementById('userNameText');
-        if (userNameText) {
-            userNameText.textContent = displayName;
-        }
-
-        // Set dropdown user info
-        const dropdownUserName = document.getElementById('dropdownUserName');
-        const dropdownUserEmail = document.getElementById('dropdownUserEmail');
-        if (dropdownUserName) dropdownUserName.textContent = displayName;
-        if (dropdownUserEmail) dropdownUserEmail.textContent = userEmail;
-
-        userDisplay.style.display = 'flex';
-        userDisplay.style.flexDirection = 'column';
-        userDisplay.style.alignItems = 'center';
-
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        if (loginBtn) loginBtn.style.display = 'none';
-        if (registerBtn) registerBtn.style.display = 'none';
-
-        // Toggle dropdown on clicking userDisplayLabel (photo or name)
-        if (userDisplayLabel) {
-            userDisplayLabel.addEventListener('click', () => {
-                const userDropdown = document.getElementById('userDropdown');
-                if (userDropdown) {
-                    userDropdown.classList.toggle('show');
-                }
-            });
-        }
-
-        // Logout button inside dropdown
-        const dropdownLogout = document.getElementById('dropdownLogout');
-        if (dropdownLogout) {
-            dropdownLogout.addEventListener('click', (e) => {
-                e.stopPropagation();
-                localStorage.removeItem('loggedInEmail');
-                localStorage.removeItem('loginTime');
-                location.reload(); // Reload to reset UI
-            });
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            const userDropdown = document.getElementById('userDropdown');
-            if (userDropdown && !userDisplay.contains(e.target)) {
-                userDropdown.classList.remove('show');
-            }
-        });
+    // Setup user display on load if logged in
+    if (loggedInEmail) {
+        setupUserDisplay(loggedInEmail);
     }
 
     // Add event listeners to menu links to check login status
