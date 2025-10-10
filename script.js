@@ -304,7 +304,7 @@ function setupUserDisplay(loggedInEmail) {
             e.stopPropagation();
             const userDropdown = document.getElementById('userDropdown');
             if (userDropdown) {
-                userDropdown.classList.toggle('show');
+                userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
             }
         });
     }
@@ -320,6 +320,28 @@ function setupUserDisplay(loggedInEmail) {
             location.reload(); // Reload to reset UI
         });
     }
+
+    // Command Menu and Theme
+    const dropdownLinks = document.querySelectorAll('#userDropdown a[href="#"]');
+    dropdownLinks.forEach(link => {
+        if (link.textContent.includes('Command Menu')) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const commandModal = document.getElementById('commandModal');
+                if (commandModal) {
+                    commandModal.style.display = 'flex';
+                }
+            });
+        } else if (link.textContent.includes('Theme')) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        }
+    });
 }
 
 // Add single outside click listener
@@ -327,9 +349,52 @@ document.addEventListener('click', (e) => {
     const userDisplay = document.getElementById('userDisplay');
     const userDropdown = document.getElementById('userDropdown');
     if (userDropdown && userDisplay && !userDisplay.contains(e.target)) {
-        userDropdown.classList.remove('show');
+        userDropdown.style.display = 'none';
     }
 });
+
+// Command modal close
+const commandModal = document.getElementById('commandModal');
+const commandCloseButtons = commandModal ? commandModal.querySelectorAll('.close-modal') : [];
+commandCloseButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        commandModal.style.display = 'none';
+    });
+});
+
+// Command items functionality
+if (commandModal) {
+    const commandItems = commandModal.querySelectorAll('.command-item');
+    commandItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const command = item.getAttribute('data-command');
+            switch (command) {
+                case 'dashboard':
+                    window.location.href = 'dashboard.html';
+                    break;
+                case 'settings':
+                    window.location.href = 'account-settings.html';
+                    break;
+                case 'team':
+                    window.location.href = 'create-team.html';
+                    break;
+                case 'home':
+                    window.location.href = 'index.html';
+                    break;
+                case 'logout':
+                    localStorage.removeItem('loggedInEmail');
+                    localStorage.removeItem('loginTime');
+                    location.reload();
+                    break;
+            }
+            commandModal.style.display = 'none';
+        });
+    });
+}
+
+// Theme on load
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
 
 // On page load, update login info display if available
 document.addEventListener('DOMContentLoaded', () => {

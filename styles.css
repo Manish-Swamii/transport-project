@@ -16,6 +16,42 @@
     --gray: #6b7280;
 }
 
+[data-theme="dark"] {
+    --primary: #3b82f6;
+    --primary-dark: #2563eb;
+    --secondary: #34d399;
+    --accent: #fbbf24;
+    --dark: #111827;
+    --light: #1f2937;
+    --gray: #9ca3af;
+}
+
+[data-theme="dark"] body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .container-card,
+[data-theme="dark"] .branch-card {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .modal-content {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+[data-theme="dark"] .user-dropdown {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+[data-theme="dark"] .user-dropdown::before {
+    border-bottom-color: #111827;
+}
+
 body {
     background-color: #f5f7fa;
     color: var(--dark);
@@ -511,6 +547,49 @@ nav a:hover::after {
 .form-footer a {
     color: var(--primary);
     text-decoration: none;
+}
+
+/* Command Menu Modal */
+.command-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.command-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    background: #f9f9f9;
+}
+
+.command-item:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.command-item i {
+    width: 18px;
+    font-size: 0.9rem;
+}
+
+.command-item kbd {
+    margin-left: auto;
+    background: #e5e7eb;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.command-item:hover kbd {
+    background: rgba(255,255,255,0.2);
+    color: white;
 }
 
 /* Footer */
