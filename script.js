@@ -291,7 +291,7 @@ function setupUserDisplay(loggedInEmail) {
     // Update login prompt message after successful login
     const loginPrompt = document.getElementById('loginPrompt');
     if (loginPrompt) {
-        loginPrompt.textContent = 'okay now use all features';
+        loginPrompt.textContent = 'Okay now use all features';
         loginPrompt.style.color = '#10b981'; // Green color for success
     }
 
