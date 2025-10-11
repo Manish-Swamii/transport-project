@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - QuikRaft</title>
+    <meta name="description" content="Login to QuikRaft - Complete Transport & Logistics Platform">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text" style="position: relative;">
+                    <div class="logo-main">QuikRaft</div>
+                    <div class="logo-tagline">TRANSPORT & LOGISTICS</div>
+                    <div id="liveDateTimeBelowLogo" style="font-weight: 600; font-size: 0.9rem; color: white; margin-top: 4px;"></div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="containers.html">Containers</a></li>
+                    <li><a href="billbook.html">BillBook</a></li>
+                    <li><a href="tracking.html">Tracking</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn" style="display: none;">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Section -->
+    <section class="services" style="padding: 4rem 2rem; text-align: center;">
+        <div class="section-title">
+            <h2>Login to QuikRaft</h2>
+        </div>
+        <div style="max-width: 400px; margin: 0 auto;">
+            <form id="loginForm" novalidate style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="loginEmail" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
+                    <input type="email" id="loginEmail" aria-label="Email Address" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" />
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="loginPassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Password</label>
+                    <input type="password" id="loginPassword" aria-label="Password" required minlength="6" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" />
+                </div>
+                <div class="form-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="#" style="color: #007bff; text-decoration: none;">Forgot Password?</a>
+                    <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">Login</button>
+                </div>
+            </form>
+            <p style="margin-top: 2rem;">Don't have an account? <a href="register.html" style="color: #007bff; text-decoration: none;">Register here</a></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>QuikRaft</h3>
+                <p>India's Smart Transport & Logistics Platform</p>
+                <p>&copy; 2024 QuikRaft. All rights reserved.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="containers.html">Containers</a></li>
+                    <li><a href="billbook.html">BillBook</a></li>
+                    <li><a href="tracking.html">Tracking</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@quikraft.com</p>
+                <p>Phone: +91 12345 67890</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="liveDateTime.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

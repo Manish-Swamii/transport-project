@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register - QuikRaft</title>
+    <meta name="description" content="Register for QuikRaft - Complete Transport & Logistics Platform">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text" style="position: relative;">
+                    <div class="logo-main">QuikRaft</div>
+                    <div class="logo-tagline">TRANSPORT & LOGISTICS</div>
+                    <div id="liveDateTimeBelowLogo" style="font-weight: 600; font-size: 0.9rem; color: white; margin-top: 4px;"></div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="containers.html">Containers</a></li>
+                    <li><a href="billbook.html">BillBook</a></li>
+                    <li><a href="tracking.html">Tracking</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn" style="display: none;">Register</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Register Section -->
+    <section class="services" style="padding: 4rem 2rem; text-align: center;">
+        <div class="section-title">
+            <h2>Join QuikRaft</h2>
+        </div>
+        <div style="max-width: 400px; margin: 0 auto;">
+            <form id="registerForm" novalidate style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="registerName" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name</label>
+                    <input type="text" id="registerName" aria-label="Full Name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" />
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="registerEmail" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
+                    <input type="email" id="registerEmail" aria-label="Email Address" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" />
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="registerPhone" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Phone Number</label>
+                    <input type="tel" id="registerPhone" aria-label="Phone Number" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" />
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="registerPassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Password</label>
+                    <input type="password" id="registerPassword" aria-label="Password" required minlength="6" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" />
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label for="registerConfirmPassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" aria-label="Confirm Password" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;" />
+                </div>
+                <div class="form-footer" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="login.html" style="color: #007bff; text-decoration: none;">Already have an account?</a>
+                    <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">Register</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>QuikRaft</h3>
+                <p>India's Smart Transport & Logistics Platform</p>
+                <p>&copy; 2024 QuikRaft. All rights reserved.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="containers.html">Containers</a></li>
+                    <li><a href="billbook.html">BillBook</a></li>
+                    <li><a href="tracking.html">Tracking</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@quikraft.com</p>
+                <p>Phone: +91 12345 67890</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="liveDateTime.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
