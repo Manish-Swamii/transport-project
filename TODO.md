@@ -1,24 +1,12 @@
-# User Dropdown Implementation Plan
+# Task: Add City Tags Properly in All Names
 
-## Information Gathered
-- HTML structure exists with userDisplay, userDropdown containing all required items: photo, name, Gmail, Home, Logout, Dashboard, Account Settings, Create Team, Command Menu, Theme.
-- JS has login, setupUserDisplay, toggle logic, logout.
-- CSS has dropdown styles, animations, responsive design.
-- Current issues: Dropdown toggle may not be working properly (using class toggle with inline style), Command Menu and Theme are placeholders without functionality.
+## Steps to Complete:
 
-## Plan
-- [x] Fix dropdown toggle by using direct style.display manipulation instead of class toggle for reliability.
-- [x] Implement Command Menu: Add a modal with common commands/shortcuts.
-- [x] Implement Theme toggle: Add dark/light mode switching by toggling CSS variables.
-- [x] Ensure all existing features remain functional (photo click, name display, Gmail link, Home link, Logout, Dashboard/Account Settings/Create Team links as placeholders).
+1. **Edit index.html**: Remove the extra 9th icon (fa-archway) and city name (Gurugram) from the "Online Truck Booking Across Top Cities" section to match the 8 cities in the image (Mumbai, Pune, Bangalore, Chennai, Ahmedabad, Kolkata, Hyderabad, Delhi NCR). [x] Completed
+2. **Adjust Layout**: Fine-tune min-width and gap in the icons and names rows for a tighter horizontal banner layout matching the image. [x] Completed
+3. **Verify Icons**: Ensure 8 generic orange Font Awesome icons are assigned appropriately (e.g., fa-landmark, fa-university, etc.) for the cities. [x] Completed
+6. **Refine Icons**: Update icons to more representative landmarks for each city (e.g., fa-mountain for Pune, fa-bridge for Kolkata) and add title attributes for accessibility. [x] Completed
+4. **Test Rendering**: Use browser to launch index.html and confirm the section displays as a compact horizontal row with icons above names, no wrapping. [x] Completed
+5. **Update TODO.md**: Mark steps as completed after each one. [x] Completed
 
-## Dependent Files to Edit
-- [x] index.html: Add Command Menu modal HTML.
-- [x] script.js: Update dropdown toggle logic, add Command Menu modal open/close, add Theme toggle functionality.
-- [x] styles.css: Add dark mode CSS variables and styles, add Command Menu modal styles.
-
-## Followup Steps
-- [x] Test dropdown toggle after login. (Fixed toggle logic to use display style)
-- [x] Test Command Menu modal opens and closes. (Added modal with close functionality)
-- [x] Test Theme toggle switches modes. (Implemented dark/light mode with localStorage persistence)
-- [x] Verify all links and animations work. (All features implemented with existing styling and animations intact)
+## Status: Completed
